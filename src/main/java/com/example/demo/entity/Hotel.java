@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -35,4 +36,8 @@ public class Hotel {
     @JsonManagedReference
     @OneToMany(mappedBy = "hotel",cascade =CascadeType.ALL,fetch =FetchType.LAZY)
     private List<Room> rooms;
+    @JsonManagedReference
+    @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Image> image = new ArrayList<>();
+
 }
