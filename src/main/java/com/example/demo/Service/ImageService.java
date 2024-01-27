@@ -8,6 +8,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -25,7 +26,8 @@ public class ImageService {
             // Hotel entity found, set it in the Image entity
             Hotel hotel = hotelOptional.get();
             Image image = new Image();
-            image.setImageUrl(imageUrl.trim()); // Set the complete image URL as provided
+            image.setImageUrl(imageUrl.trim().replaceAll("\"", ""));
+            // Set the complete image URL as provided
             image.setHotel(hotel); // Set the Hotel entity
 
             imageRepo.save(image);
@@ -34,4 +36,13 @@ public class ImageService {
             throw new EntityNotFoundException("Hotel with ID " + hotelId + " not found");
         }
     }
-}
+
+
+        public List<Image> getImagesByHotelId(Long hotelId) {
+            return imageRepo.findByHotelHotelId(hotelId);
+        }
+
+    }
+
+
+

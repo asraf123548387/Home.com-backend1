@@ -13,6 +13,7 @@ public class HotelService {
     @Autowired
     HotelRepo hotelRepo;
 
+
     public List<Hotel> getHotelBySearch(String search) {
         // Assuming your repository has a method like findByHotelNameContainingIgnoreCase
         // You can customize this based on your actual entity fields and search logic
@@ -33,4 +34,6 @@ public class HotelService {
         Hotel updatedHotel = hotelRepo.save(existingHotel);
         return updatedHotel;
     }
+
+
 }

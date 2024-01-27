@@ -72,41 +72,7 @@ public class AdminUserController {
 
 
 
-//    @GetMapping("/adminUpdateUsers/{userId}")
-//    public ResponseEntity<User> getUserById(@PathVariable Long userId) {
-//        {
-//            Optional<User> userOptional = repo.findById(userId);
-//            return userOptional.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
-//        }
-//
-//    }
 
-
-//    @PutMapping("/adminUpdateUsers/{userId}")
-//    public ResponseEntity<User> updateUser(@PathVariable Long userId, @RequestBody User updatedUser) {
-//        Optional<User> userOptional = repo.findById(userId);
-//
-//        if (userOptional.isPresent()) {
-//            User existingUser = userOptional.get();
-//            existingUser.setUserName(updatedUser.getUserName());
-//            existingUser.setEmail(updatedUser.getEmail());
-//            existingUser.setMobile(updatedUser.getMobile());
-//
-//            // Save the updated user
-//            User savedUser = repo.save(existingUser);
-//            return ResponseEntity.ok(savedUser);
-//        } else {
-//            return ResponseEntity.notFound().build();
-//        }
-//    }
-
-//    @GetMapping("/currentUser")
-//    public ResponseEntity<User> getCurrentUser(@AuthenticationPrincipal UserDetails userDetails) {
-//        String username = userDetails.getUsername();
-//        Optional<User> userOptional = repo.findByUserName(username);
-//
-//        return userOptional.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
-//    }
 
 
 
