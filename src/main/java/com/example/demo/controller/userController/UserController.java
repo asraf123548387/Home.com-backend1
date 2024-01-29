@@ -106,10 +106,13 @@ public class UserController {
                 String userEmail= authRequest.getEmail();
                 List<String> roles = userDetailsInfoService.getUserRoles(authRequest.getEmail());
                 Long userId=userDetailsInfoService.getUserId(userEmail);
+                String userName=userDetailsInfoService.getUserName(userEmail);
+
+
                 String token = jwtService.generateToken(authRequest.getEmail(),roles);
                 System.out.println(userId);
                 System.out.print(token);
-                AuthResponse authResponse=new AuthResponse(token,userId);
+                AuthResponse authResponse=new AuthResponse(token,userId,userName);
                 return ResponseEntity.ok(authResponse);
             } else {
                 throw new UsernameNotFoundException("Invalid user request!");

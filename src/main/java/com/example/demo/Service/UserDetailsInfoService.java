@@ -128,4 +128,32 @@ public class UserDetailsInfoService implements org.springframework.security.core
         return optionalUser.map(User::getId).orElse(null);
     }
 
+
+
+
+    public String getUserName(String userEmail) {
+        Optional<User> optionalUser = userRepo.findByEmail(userEmail);
+        return optionalUser.map(User::getUserName).orElse(null);
+    }
+
+    public void updateUserProfile(User updatedUser) {
+        User existingUser =userRepo.findById(updatedUser.getId()).orElse(null);
+        if (existingUser != null) {
+            // Update the user profile details
+            existingUser.setUserName(updatedUser.getUserName());
+            // Save the updated user profile to the database
+            userRepo.save(existingUser);
+        }
+    }
+
+    public void updateUserProfilePhone(User updatedUser) {
+        User existingUser =userRepo.findById(updatedUser.getId()).orElse(null);
+        if (existingUser != null) {
+            // Update the user profile details
+            existingUser.setMobile(updatedUser.getMobile());
+            // Save the updated user profile to the database
+            userRepo.save(existingUser);
+        }
+    }
 }
+

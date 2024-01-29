@@ -1,19 +1,20 @@
 package com.example.demo.controller.userController;
 
+import com.example.demo.Service.UserDetailsInfoService;
 import com.example.demo.entity.User;
 import com.example.demo.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/user")
 public class UserProfileController {
     @Autowired
     UserRepo userRepo;
+    @Autowired
+    UserDetailsInfoService userDetailsInfoService;
 @GetMapping("/profile/{userId}")
         public ResponseEntity<User> getUserProfile(@PathVariable Long userId) {
             User user = userRepo.findById(userId).orElse(null);
@@ -23,5 +24,30 @@ public class UserProfileController {
                 return ResponseEntity.notFound().build();
             }
         }
+
+@PutMapping("/profile/updateUser")
+public ResponseEntity<?> updateUserProfile(@RequestBody User updatedUser)
+{
+    try{
+        userDetailsInfoService.updateUserProfile(updatedUser);
+        return ResponseEntity.ok("username updated successfully");
+
+    }catch (Exception e){
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error updating userProfile");
+
+    }
+}
+    @PutMapping("/profile/updatePhone")
+    public ResponseEntity<?> updateUserProfilePhone(@RequestBody User updatedUser)
+    {
+        try{
+            userDetailsInfoService.updateUserProfilePhone(updatedUser);
+            return ResponseEntity.ok("username updated successfully");
+
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error updating userProfile");
+
+        }
+    }
 
 }

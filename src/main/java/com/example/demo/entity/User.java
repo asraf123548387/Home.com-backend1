@@ -28,6 +28,7 @@ public class User {
         private String roles;
         private boolean verified;
         private boolean isBlocked;
+        private String address;
         @JsonManagedReference
         @OneToMany(mappedBy = "adminUser",cascade =CascadeType.ALL,fetch =FetchType.LAZY)
         private List<Hotel> adminHotels;
