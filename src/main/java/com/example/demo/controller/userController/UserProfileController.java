@@ -50,4 +50,27 @@ public ResponseEntity<?> updateUserProfile(@RequestBody User updatedUser)
         }
     }
 
+    @PutMapping("/profile/updateAddress")
+    public ResponseEntity<?> updateUserProfileAddress(@RequestBody User updatedUser)
+    {
+        try {
+            userDetailsInfoService.updateUserProfileAddress(updatedUser);
+            return  ResponseEntity.ok("address updated successfully");
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error updating userProfile");
+        }
+    }
+    @PutMapping("/profile/updateDateOfBirth")
+    public ResponseEntity<?> updateUserProfileDateOfBirth(@RequestBody User updatedUser){
+
+    try{
+        userDetailsInfoService.updateUserProfileDateOfBirth(updatedUser);
+        return ResponseEntity.ok("date of birth updated successfully");
+
+    }catch (Exception e){
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error updating userProfile");
+    }
+    }
+
+
 }

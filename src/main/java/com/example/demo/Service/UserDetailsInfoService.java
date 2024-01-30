@@ -155,5 +155,25 @@ public class UserDetailsInfoService implements org.springframework.security.core
             userRepo.save(existingUser);
         }
     }
+
+    public void updateUserProfileAddress(User updatedUser) {
+        User existingUser=userRepo.findById(updatedUser.getId()).orElse(null);
+        if(existingUser!=null){
+            existingUser.setAddress(updatedUser.getAddress());
+            userRepo.save(existingUser);
+
+        }
+    }
+
+    public void updateUserProfileDateOfBirth(User updatedUser) {
+
+
+        User existingUser=userRepo.findById(updatedUser.getId()).orElse(null);
+        if(existingUser!=null)
+        {
+            existingUser.setDateOfBirth(updatedUser.getDateOfBirth());
+            userRepo.save(existingUser);
+        }
+    }
 }
 
