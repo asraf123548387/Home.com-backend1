@@ -42,7 +42,7 @@ public ResponseEntity<?> updateUserProfile(@RequestBody User updatedUser)
     {
         try{
             userDetailsInfoService.updateUserProfilePhone(updatedUser);
-            return ResponseEntity.ok("username updated successfully");
+            return ResponseEntity.ok("username updated successfullyf");
 
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error updating userProfile");
