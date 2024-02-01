@@ -25,5 +25,6 @@ public class Room {
     private Hotel hotel;
 
     private String images;
+    private String roomType;
 
 }
