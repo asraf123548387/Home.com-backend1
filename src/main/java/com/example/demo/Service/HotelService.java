@@ -36,4 +36,7 @@ public class HotelService {
     }
 
 
+    public List<Hotel> getHotelsForAdmin(Long adminUserId) {
+        return hotelRepo.findByAdminUserId(adminUserId);
+    }
 }
