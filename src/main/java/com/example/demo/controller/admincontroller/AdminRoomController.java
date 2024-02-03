@@ -41,6 +41,45 @@ public class AdminRoomController {
         }
     }
 
+@GetMapping("/roomList")
+    public ResponseEntity<?> getAllHotels(@RequestParam(name = "search",required = false)String search){
+        try{
+            List<Room> rooms;
+            if(search !=null && !search.isEmpty()){
+                rooms=roomService.getRoomBySearch(search);
+            }else{
+                rooms=roomService.getAllRooms();
+            }
+            return ResponseEntity.ok(rooms);
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error fetching users");
+        }
+}
+    @GetMapping("/room/{roomId}")
+    public ResponseEntity<Room> getRoomByIdDetails(@PathVariable Long roomId){
+        Room room=roomService.getRoomById(roomId);
+        return ResponseEntity.ok(room);
+    }
+    @PutMapping("/room/{roomId}")
+    public ResponseEntity<Room> updateRoom(@PathVariable Long roomId,@RequestBody RoomDto roomDto){
+        try{
+            Room existingRoom=roomService.getRoomById(roomId);
+            if(existingRoom==null){
+                return ResponseEntity.notFound().build();
+            }
+            existingRoom.setRoomNumber(roomDto.getRoomNumber());
+          existingRoom.setRoomType(roomDto.getRoomType());
+          existingRoom.setImages(roomDto.getImages());
+          existingRoom.setPricePerNight(Double.parseDouble(roomDto.getPricePerNight()));
+        Room updatedRoom=roomService.updateRoom(existingRoom);
+            return ResponseEntity.ok(updatedRoom);
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
+
+
+
 
 
 

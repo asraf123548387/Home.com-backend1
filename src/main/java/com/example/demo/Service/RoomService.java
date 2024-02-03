@@ -8,6 +8,9 @@ import com.example.demo.repo.RoomRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class RoomService {
     @Autowired
@@ -36,5 +39,33 @@ public class RoomService {
     } catch (Exception e) {
         throw new RuntimeException("Failed to add room", e);
     }
+    }
+
+    public List<Room> getRoomsByHotelIds(Long hotelId) {
+
+
+        return roomRepo.findByHotel_HotelId(hotelId);
+
+    }
+
+    public List<Room> getRoomBySearch(String search) {
+        return roomRepo.findByRoomNumberContainingIgnoreCase(search);
+
+    }
+
+    public List<Room> getAllRooms() {
+        return roomRepo.findAll();
+    }
+
+    public Room getRoomById(Long roomId) {
+        Optional<Room> roomOptional=roomRepo.findById(roomId);
+        return roomOptional.orElse(null);
+
+
+
+    }
+
+    public Room updateRoom(Room existingRoom) {
+        return roomRepo.save(existingRoom);
     }
 }
