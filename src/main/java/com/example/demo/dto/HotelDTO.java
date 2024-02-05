@@ -20,6 +20,4 @@ public class HotelDTO {
     private String location;
     private String price;
 
-
-
 }
