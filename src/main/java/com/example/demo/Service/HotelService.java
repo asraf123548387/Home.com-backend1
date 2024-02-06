@@ -16,7 +16,7 @@ public class HotelService {
 
     public List<Hotel> getHotelBySearch(String search) {
         // Assuming your repository has a method like findByHotelNameContainingIgnoreCase
-        // You can customize this based on your actual entity fields and search logic
+        // You can customize this based on your actual entity fields and search logic ff
         return hotelRepo.findByHotelNameContainingIgnoreCase(search);
     }
     public List<Hotel> getAllHotels() {
