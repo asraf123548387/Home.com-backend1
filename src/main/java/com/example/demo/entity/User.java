@@ -35,5 +35,12 @@ public class User {
         @JsonManagedReference
         @OneToMany(mappedBy = "adminUser",cascade =CascadeType.ALL,fetch =FetchType.LAZY)
         private List<Hotel> adminHotels;
+
+        @JsonManagedReference
+        @OneToMany(mappedBy = "user",cascade =CascadeType.ALL,fetch = FetchType.LAZY)
+        private List<Booking> bookings;
+
+
+
     }
 

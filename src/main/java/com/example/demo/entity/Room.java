@@ -1,8 +1,11 @@
 package com.example.demo.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @Entity
 @Data
@@ -26,5 +29,7 @@ public class  Room {
 
     private String images;
     private String roomType;
-
+    @JsonManagedReference
+    @OneToMany(mappedBy = "room",cascade =CascadeType.ALL,fetch = FetchType.LAZY)
+    private List<Booking> bookings;
 }
