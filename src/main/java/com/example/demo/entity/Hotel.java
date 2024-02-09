@@ -39,5 +39,8 @@ public class Hotel {
     @JsonManagedReference
     @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Image> image = new ArrayList<>();
+    @JsonManagedReference
+    @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL)
+    private List<Review> reviews;
 
 }

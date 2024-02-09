@@ -40,6 +40,9 @@ public class User {
         @OneToMany(mappedBy = "user",cascade =CascadeType.ALL,fetch = FetchType.LAZY)
         private List<Booking> bookings;
 
+        @JsonManagedReference
+        @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+        private List<Review> reviews;
 
 
     }
