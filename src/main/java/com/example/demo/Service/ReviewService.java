@@ -1,6 +1,7 @@
 package com.example.demo.Service;
 
 import com.example.demo.dto.ReviewDto;
+import com.example.demo.dto.ReviewWithUserNameDto;
 import com.example.demo.entity.Hotel;
 import com.example.demo.entity.Review;
 import com.example.demo.entity.User;
@@ -10,6 +11,10 @@ import com.example.demo.repo.UserRepo;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ReviewService {
@@ -30,10 +35,35 @@ public class ReviewService {
         review.setRating(reviewDto.getRating());
         review.setHotel(hotel);
         review.setUser(user);
+        review.setReviewDate(new Date());
 
         // Save the Review entity
         reviewRepo.save(review);
 
 
     }
+
+    public List<ReviewWithUserNameDto> getReviewsHotelById(Long hotelId) {
+        return reviewRepo.findByHotelHotelId(hotelId).stream()
+                .map(review -> {
+                    ReviewWithUserNameDto reviewDto= new ReviewWithUserNameDto();
+                    reviewDto.setReviewId(review.getReviewId());
+                    reviewDto.setTitle(review.getTitle());
+                    reviewDto.setReviewDate(review.getReviewDate());
+                    reviewDto.setDescription(review.getDescription());
+                    reviewDto.setRating(review.getRating());
+                    reviewDto.setUserName(review.getUser().getUserName());
+                    System.out.println(reviewDto.getUserName());
+
+                    return reviewDto;
+
+
+                }).collect(Collectors.toList());
+    }
+
+//    public List<Review> getReviewsHotelById(Long hotelId) {
+//        return reviewRepo.findByHotelHotelId(hotelId);
+//    }
+
+
 }

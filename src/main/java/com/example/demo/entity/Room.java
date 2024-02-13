@@ -23,13 +23,13 @@ public class  Room {
     private double pricePerNight;
     private boolean availability;
     @ManyToOne
-    @JsonBackReference
+    @JsonBackReference("hotel-rooms")
     @JoinColumn(name="hotelId")
     private Hotel hotel;
 
     private String images;
     private String roomType;
-    @JsonManagedReference
+    @JsonManagedReference("room-bookings")
     @OneToMany(mappedBy = "room",cascade =CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Booking> bookings;
 }

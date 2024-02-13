@@ -30,16 +30,16 @@ public class Hotel {
     private String images;
     private String price;
     @ManyToOne
-    @JsonBackReference
+    @JsonBackReference("user-hotel")
     @JoinColumn(name="adminUserId")
     private User adminUser;
-    @JsonManagedReference
+    @JsonManagedReference("hotel-rooms")
     @OneToMany(mappedBy = "hotel",cascade =CascadeType.ALL,fetch =FetchType.LAZY)
     private List<Room> rooms;
-    @JsonManagedReference
+    @JsonManagedReference("hotel-images")
     @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Image> image = new ArrayList<>();
-    @JsonManagedReference
+    @JsonManagedReference("hotel-reviews")
     @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL)
     private List<Review> reviews;
 

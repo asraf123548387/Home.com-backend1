@@ -32,15 +32,15 @@ public class User {
         private String dateOfBirth;
 
 
-        @JsonManagedReference
+        @JsonManagedReference("user-hotel")
         @OneToMany(mappedBy = "adminUser",cascade =CascadeType.ALL,fetch =FetchType.LAZY)
         private List<Hotel> adminHotels;
 
-        @JsonManagedReference
+        @JsonManagedReference("user-bookings")
         @OneToMany(mappedBy = "user",cascade =CascadeType.ALL,fetch = FetchType.LAZY)
         private List<Booking> bookings;
 
-        @JsonManagedReference
+        @JsonManagedReference("user-reviews")
         @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
         private List<Review> reviews;
 

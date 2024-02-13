@@ -19,7 +19,7 @@ public class Image {
     @Getter
     private String imageUrl;
 
-    @JsonBackReference
+    @JsonBackReference("hotel-images")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "hotel_id")
     private Hotel hotel;

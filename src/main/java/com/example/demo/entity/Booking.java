@@ -24,11 +24,12 @@ public class Booking {
     private Date checkOutDate;
     private Double totalPrice;
     private String paymentStatus;
-    @JsonBackReference
+
+    @JsonBackReference("user-bookings")
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-    @JsonBackReference
+    @JsonBackReference("room-bookings")
     @ManyToOne
     @JoinColumn(name = "room_id")
     private Room room;

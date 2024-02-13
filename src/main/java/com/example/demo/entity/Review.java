@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Entity
 @Getter
 @Setter
@@ -18,18 +20,21 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reviewId;
     private String title;
+    @Column(length = 2000)
     private String description;
     private int rating;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonBackReference
+    @JsonBackReference("hotel-reviews")
     @JoinColumn(name = "hotel_id",nullable = false)
     private Hotel hotel;
 
-    @JsonBackReference
+    @JsonBackReference("user-reviews")
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+    private Date reviewDate;
+
 
 
 }
