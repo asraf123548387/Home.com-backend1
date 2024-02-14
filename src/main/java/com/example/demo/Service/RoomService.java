@@ -27,6 +27,7 @@ public class RoomService {
 
         Room room=new Room();
         room.setRoomNumber(roomDto.getRoomNumber());
+        room.setAvailability(true);
         room.setRoomType(roomDto.getRoomType());
         room.setPricePerNight(Double.parseDouble(roomDto.getPricePerNight()));
         room.setImages(roomDto.getImages());
