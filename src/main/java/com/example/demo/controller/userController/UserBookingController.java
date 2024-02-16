@@ -28,4 +28,14 @@ public class UserBookingController {
         }
 
     }
+
+    @PostMapping("/onlineBooking")
+    public ResponseEntity<String> hanRoomOnlineBooking(@RequestBody BookingDto bookingDto){
+        try{
+            bookingService.onlineBookRoom(bookingDto);
+            return new ResponseEntity<>("Booking successfully",HttpStatus.OK);
+        }catch (Exception e){
+            return  new ResponseEntity<>("Booking failed: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

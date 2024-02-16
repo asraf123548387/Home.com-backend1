@@ -35,7 +35,7 @@ public class SecurityConfig {
         return http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth->{
                     auth.requestMatchers("/user/profile/**") .authenticated();
-                    auth.requestMatchers("/img/**","/user/**").permitAll();
+                    auth.requestMatchers("/img/**","/user/**","/verify").permitAll();
                     auth.requestMatchers("/saveUser", "/", "/login","/verifyOtp","/forgotPassword","/verifyForgotPassword","/SAdmin/addAdmin").permitAll();
                     auth.requestMatchers("/admin/**").hasAnyRole("ADMIN", "SADMIN") ;
                     auth.requestMatchers("/SAdmin/**").hasRole("SADMIN");
@@ -44,7 +44,7 @@ public class SecurityConfig {
                 .sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class)
-                .build();
+                  .build();
 
     }
     @Bean

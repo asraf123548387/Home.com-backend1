@@ -45,6 +45,7 @@ public class UserCheckOutController {
     @GetMapping("/getHotel/{hotelId}")
     public ResponseEntity<Hotel> getHotelById(@PathVariable Long hotelId) {
         Hotel hotel = hotelService.getHotelById(hotelId);
+
         return ResponseEntity.ok().body(hotel);
     }
 }

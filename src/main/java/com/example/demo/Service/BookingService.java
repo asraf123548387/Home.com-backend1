@@ -127,7 +127,12 @@ public class BookingService {
                 contentStream.showText("Room Price: " + booking.getRoom().getPricePerNight());
                 contentStream.endText();
 
-                contentStream.addRect(40, 530, 250, 240); // Adjust the rectangle dimensions and position as needed
+                contentStream.beginText();
+                contentStream.newLineAtOffset(50, 520); // Adjust the Y-coordinate as needed
+                contentStream.showText("Payment Type: " + booking.getPaymentStatus());
+                contentStream.endText();
+
+                contentStream.addRect(40, 530, 300, 300); // Adjust the rectangle dimensions and position as needed
                 contentStream.stroke();
             }
 
@@ -138,4 +143,23 @@ public class BookingService {
         }
     }
 
+    public void onlineBookRoom(BookingDto bookingDto) throws IOException, MessagingException {
+        Booking booking = new Booking();
+        booking.setGuestName(bookingDto.getGuestName());
+        booking.setEmail(bookingDto.getEmail());
+        booking.setPhone(bookingDto.getMobileNumber());
+        booking.setCheckInDate(bookingDto.getCheckInDate());
+        booking.setCheckOutDate(bookingDto.getCheckOutDate());
+        booking.setTotalPrice(bookingDto.getTotalPrice());
+        Room room =roomRepo.findByRoomId(bookingDto.getRoomId()).orElseThrow(() -> new IllegalArgumentException("Room not found"));
+        room.setAvailability(false);
+        booking.setRoom(room);
+        booking.setPaymentStatus("Pay At Online");
+        User user =userRepo.findById(bookingDto.getUserId()).orElseThrow(() -> new IllegalArgumentException("User not found"));
+        booking.setUser(user);
+
+        bookingRepo.save(booking);
+        ByteArrayOutputStream outputStream=generatePdfConfirmation(booking);
+        sendEmailWithAttachment(bookingDto.getEmail(), "Thank You for Booking Room With HOme.com", "Please find your booking confirmation attached.", outputStream.toByteArray());
+    }
 }

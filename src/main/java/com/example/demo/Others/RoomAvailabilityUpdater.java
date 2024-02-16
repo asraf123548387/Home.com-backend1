@@ -22,8 +22,10 @@ public class RoomAvailabilityUpdater {
 
     @Scheduled(fixedDelay = 86400000)
     public void updateRoomAvailability(){
+        System.out.println("hello");
         Date currentDate =new Date();
         handlePayAtHotelBookings(currentDate);
+
 
         // Handle bookings with "Online Payment" status
 //        handleOnlinePaymentBookings(currentDate);
