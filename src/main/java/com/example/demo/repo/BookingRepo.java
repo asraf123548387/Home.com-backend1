@@ -9,4 +9,5 @@ import java.util.List;
 public interface BookingRepo extends JpaRepository<Booking,Long> {
     List<Booking> findByCheckOutDateBeforeAndPaymentStatus(Date currentDate, String payAtHotel);
 
+    List<Booking> findByUserId(Long userId);
 }

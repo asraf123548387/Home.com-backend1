@@ -61,9 +61,30 @@ public class ReviewService {
                 }).collect(Collectors.toList());
     }
 
-//    public List<Review> getReviewsHotelById(Long hotelId) {
-//        return reviewRepo.findByHotelHotelId(hotelId);
-//    }
+    public List<ReviewDto> getUserReviewsByUserId(Long userId) {
+        List<Review> reviews=reviewRepo.findByUserId(userId);
+        List<ReviewDto> reviewDTOS=reviews.stream().map(review -> {
+            ReviewDto reviewDto=new ReviewDto();
+            reviewDto.setRating(review.getRating());
+            reviewDto.setDescription(review.getDescription());
+            reviewDto.setTitle(review.getTitle());
+            String hotelName=review.getHotel().getHotelName();
+            reviewDto.setHotelName(hotelName);
+            String image=review.getHotel().getImages();
+            reviewDto.setImage(image);
+            String place=review.getHotel().getLocation();
+            reviewDto.setPlace(place);
+
+            return reviewDto;
+
+
+
+        }) .collect(Collectors.toList());
+
+  return reviewDTOS;
+    }
+
+
 
 
 }

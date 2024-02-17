@@ -15,6 +15,9 @@ public class ReviewDto {
     private int rating;
     private Long hotelId;
     private Long userId;
+    private String hotelName;
+    private String image;
+    private String place;
 
 
 }

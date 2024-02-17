@@ -12,6 +12,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BookingDto {
+    private Long booking_id;
     private String guestName;
     private String email;
     private String mobileNumber;
@@ -20,4 +21,9 @@ public class BookingDto {
     private Double totalPrice;
     private Long roomId;
     private Long userId;
+    private String hotelName;
+    private String paymentStatus;
+    private String address;
+    private String roomNumber;
+    private String roomType;
 }

@@ -35,6 +35,11 @@ public class UserReviewController {
     public List<ReviewWithUserNameDto> getReviewsByHotelId(@RequestParam Long hotelId){
         return reviewService.getReviewsHotelById(hotelId);
     }
+    @GetMapping("/userReviewss/{userId}")
+    public ResponseEntity<List<ReviewDto>> getUserReview(@PathVariable Long userId){
+        List<ReviewDto> userReviews=reviewService.getUserReviewsByUserId(userId);
+        return ResponseEntity.ok(userReviews);
+    }
 
 
 }

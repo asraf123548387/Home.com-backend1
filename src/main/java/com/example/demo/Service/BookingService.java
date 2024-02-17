@@ -22,6 +22,8 @@ import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class BookingService {
@@ -161,5 +163,37 @@ public class BookingService {
         bookingRepo.save(booking);
         ByteArrayOutputStream outputStream=generatePdfConfirmation(booking);
         sendEmailWithAttachment(bookingDto.getEmail(), "Thank You for Booking Room With HOme.com", "Please find your booking confirmation attached.", outputStream.toByteArray());
+    }
+
+    public List<BookingDto> getUserBookings(Long userId) {
+      List<Booking> bookings=bookingRepo.findByUserId(userId);
+
+      List<BookingDto> bookingDTOs=bookings.stream().map(booking -> {
+          BookingDto bookingDTO=new BookingDto();
+                  bookingDTO.setBooking_id(booking.getBooking_id());
+//                  bookingDTO.setGuestName(booking.getGuestName());
+//                  bookingDTO.setEmail(booking.getEmail());
+//                  bookingDTO.setMobileNumber(booking.getPhone());
+                  bookingDTO.setCheckInDate(booking.getCheckInDate());
+                  bookingDTO.setCheckOutDate(booking.getCheckOutDate());
+                  bookingDTO.setTotalPrice(booking.getTotalPrice());
+                  bookingDTO.setPaymentStatus(booking.getPaymentStatus());
+
+                  // Get the hotel name from the associated room's hotel
+                  String hotelName = booking.getRoom().getHotel().getHotelName();
+                  bookingDTO.setHotelName(hotelName);
+                  String address=booking.getRoom().getHotel().getAddress();
+                  bookingDTO.setAddress(address);
+                  String roomNumber=booking.getRoom().getRoomNumber();
+                  bookingDTO.setRoomNumber(roomNumber);
+                  String roomType=booking.getRoom().getRoomType();
+                  bookingDTO.setRoomType(roomType);
+
+
+                  return bookingDTO;
+              })
+              .collect(Collectors.toList());
+
+        return bookingDTOs;
     }
 }
