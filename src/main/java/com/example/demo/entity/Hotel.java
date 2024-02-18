@@ -42,5 +42,8 @@ public class Hotel {
     @JsonManagedReference("hotel-reviews")
     @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL)
     private List<Review> reviews;
+    @JsonManagedReference("hotel-wishlist")
+    @OneToMany(mappedBy = "hotel",cascade = CascadeType.ALL)
+    private List<WishList> wishLists;
 
 }

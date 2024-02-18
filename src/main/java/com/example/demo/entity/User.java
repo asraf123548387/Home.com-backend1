@@ -45,5 +45,11 @@ public class User {
         private List<Review> reviews;
 
 
+        @JsonManagedReference("user-wishlist")
+        @OneToMany(mappedBy = "user",cascade =CascadeType.ALL,fetch = FetchType.LAZY)
+        private List<WishList> wishLists;
+
+
+
     }
 
