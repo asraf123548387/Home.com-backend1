@@ -145,7 +145,7 @@ public class BookingService {
         }
     }
 
-    public void onlineBookRoom(BookingDto bookingDto) throws IOException, MessagingException {
+    public BookingDto onlineBookRoom(BookingDto bookingDto) throws IOException, MessagingException {
         Booking booking = new Booking();
         booking.setGuestName(bookingDto.getGuestName());
         booking.setEmail(bookingDto.getEmail());
@@ -163,6 +163,7 @@ public class BookingService {
         bookingRepo.save(booking);
         ByteArrayOutputStream outputStream=generatePdfConfirmation(booking);
         sendEmailWithAttachment(bookingDto.getEmail(), "Thank You for Booking Room With HOme.com", "Please find your booking confirmation attached.", outputStream.toByteArray());
+        return bookingDto;
     }
 
     public List<BookingDto> getUserBookings(Long userId) {

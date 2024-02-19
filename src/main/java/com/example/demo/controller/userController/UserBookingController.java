@@ -1,6 +1,7 @@
 package com.example.demo.controller.userController;
 
 import com.example.demo.Service.BookingService;
+import com.example.demo.Service.NotificationService;
 import com.example.demo.dto.BookingDto;
 import com.example.demo.entity.Booking;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,8 @@ public class UserBookingController {
     @Autowired
     private BookingService bookingService;
 
+    @Autowired
+    private NotificationService notificationService;
 
 
     @PostMapping("/roomBooking")
@@ -34,12 +37,16 @@ public class UserBookingController {
     }
 
     @PostMapping("/onlineBooking")
-    public ResponseEntity<String> hanRoomOnlineBooking(@RequestBody BookingDto bookingDto){
-        try{
-            bookingService.onlineBookRoom(bookingDto);
-            return new ResponseEntity<>("Booking successfully",HttpStatus.OK);
-        }catch (Exception e){
-            return  new ResponseEntity<>("Booking failed: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    public ResponseEntity<String> handleRoomOnlineBooking(@RequestBody BookingDto bookingDto) {
+        try {
+            // Assuming bookingService.onlineBookRoom returns the created booking
+            BookingDto createdBooking = bookingService.onlineBookRoom(bookingDto);
+            // Send a notification about the new booking
+            notificationService.sendNotification("New booking: " + createdBooking.toString());
+            return new ResponseEntity<>("Booking successfully", HttpStatus.OK);
+        } catch (Exception e) {
+            // Log the error and return an appropriate response
+            return new ResponseEntity<>("Booking failed: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -48,6 +55,7 @@ public class UserBookingController {
     @PostMapping("/userBookingList/{userId}")
     public ResponseEntity<List<BookingDto>> getUserBookings(@PathVariable Long userId){
         List<BookingDto> bookings=bookingService.getUserBookings(userId);
+
         return ResponseEntity.ok(bookings);
     }
 }
