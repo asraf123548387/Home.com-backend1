@@ -104,4 +104,13 @@ public ResponseEntity<String> saveHotel(@RequestBody HotelDTO hotelDTO){
         }
     }
 
+
+    @GetMapping("/countHotel/{userId}")
+    public ResponseEntity<Long> countHotelsByUserId(@PathVariable Long userId) {
+        Long count = hotelRepo. countByAdminUserId(userId);
+        return ResponseEntity.ok(count);
+    }
+
+
+
 }

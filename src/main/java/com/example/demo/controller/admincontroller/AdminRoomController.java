@@ -67,6 +67,9 @@ public class AdminRoomController {
             if(existingRoom==null){
                 return ResponseEntity.notFound().build();
             }
+            if (!roomService.isRoomNumberUnique(roomDto.getRoomNumber(), roomId)) {
+                return ResponseEntity.badRequest().body(null);
+            }
             existingRoom.setRoomNumber(roomDto.getRoomNumber());
           existingRoom.setRoomType(roomDto.getRoomType());
           existingRoom.setImages(roomDto.getImages());
@@ -77,6 +80,7 @@ public class AdminRoomController {
             return ResponseEntity.badRequest().body(null);
         }
     }
+
 
 
 

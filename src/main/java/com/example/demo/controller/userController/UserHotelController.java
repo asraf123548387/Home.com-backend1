@@ -8,10 +8,7 @@ import com.example.demo.repo.HotelRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.awt.*;
 import java.util.List;
@@ -45,6 +42,14 @@ public class UserHotelController {
         return hotelRepo.findById(hotelId)
                 .map(hotel -> ResponseEntity.ok(hotel)).
                 orElse(ResponseEntity.notFound().build());
+    }
+    @GetMapping("/hotelListByLocation")
+    public ResponseEntity<List<Hotel>> getHotelsByLocation(@RequestParam String location) {
+        List<Hotel> hotels = hotelRepo.findByLocation(location);
+        if (hotels.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(hotels, HttpStatus.OK);
     }
 
 

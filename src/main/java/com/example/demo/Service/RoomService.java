@@ -69,4 +69,9 @@ public class RoomService {
     public Room updateRoom(Room existingRoom) {
         return roomRepo.save(existingRoom);
     }
+
+    public boolean isRoomNumberUnique(String roomNumber, Long excludeRoomId) {
+        Room room = roomRepo.findByRoomNumber(roomNumber);
+        return room == null || (room.getRoomId() != null && room.getRoomId().equals(excludeRoomId));
+    }
 }

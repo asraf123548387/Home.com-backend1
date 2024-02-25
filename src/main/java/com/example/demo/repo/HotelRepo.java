@@ -14,4 +14,8 @@ public interface HotelRepo extends JpaRepository<Hotel,Long> {
     List<Hotel> findByAdminUserId(Long adminUserId);
 
     Hotel findByHotelId(Long hotelId);
+    List<Hotel> findByLocation(String location);
+
+
+    Long countByAdminUserId(Long userId);
 }

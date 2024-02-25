@@ -12,4 +12,6 @@ public interface RoomRepo extends JpaRepository<Room,Long> {
     List<Room> findByRoomNumberContainingIgnoreCase(String search);
 
     Optional<Room> findByRoomId(Long roomId);
+
+    Room findByRoomNumber(String roomNumber);
 }
